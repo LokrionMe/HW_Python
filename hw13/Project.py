@@ -34,7 +34,7 @@ class Project:
         f_list = [User(u_name, u_id, level) for level, users in f_dict.items()
                   for u_id, u_name in users.items()]
         return Project(f_list)
-
+    
     def login(self, name: str, u_id: int):
         '''Проверяет существует ли юзер с name и id,
         если находит - админа приравнивает пользователю,
@@ -70,6 +70,8 @@ class Project:
             if user in self.list_users:
                 self.list_users.pop(self.list_users.index(user))
                 return "User deleted"
+            else:
+                raise AccessError
 
     def write_users(self, filename):
         '''Сохраняет список юзеров типа: User в JSON-файл'''
@@ -84,17 +86,17 @@ class Project:
 
 # Перед запуском, если у вас есть свой json файл, то используйте его, по идеи должно сработать,
 # если файла нет или что-то пошло не так, то сначала запустите test.py, он создаст необходимое
-test_project = Project().read_users('users')
-print(test_project)
-a = User('vitalya', 1, 1)
-b = User('vitalya', 2, 1)
-c = User('egor', 5, 1)
-d = User('pasha', 6, 3)
-print(test_project.add_user(c))
-print(test_project.login('vitalya', 1))
-print(test_project.admin)
-# # print(test_project.add_user(c)) #Дропает LevelError
-print(test_project.add_user(d))
-test_project.write_users('users2')
-print(test_project.delete_user(d))
-# print(test_project.login('vitalya', 2)) #Дропает AccessError
+# test_project = Project().read_users('users')
+# print(test_project)
+# a = User('vitalya', 1, 1)
+# b = User('vitalya', 2, 1)
+# c = User('egor', 5, 1)
+# d = User('pasha', 6, 3)
+# print(test_project.add_user(c))
+# print(test_project.login('vitalya', 1))
+# print(test_project.admin)
+# # # print(test_project.add_user(c)) #Дропает LevelError
+# print(test_project.add_user(d))
+# test_project.write_users('users2')
+# print(test_project.delete_user(d))
+# # print(test_project.login('vitalya', 2)) #Дропает AccessError
